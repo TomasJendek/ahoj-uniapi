@@ -9,7 +9,7 @@ Finance a.s., ktorí prevádzkujú elektronický obchod.
 | Poskytovateľ  | Poskytovateľom Služby Ahoj „Kúp teraz, zaplať o 30 dní“ je Amico Finance, a.s. | 
 | KTZo30d  | Služba Ahoj „Kúp teraz, zaplať o 30 dní“. | 
 | API Ahoj  | Application Programming Interface – aplikačné programové REST rozhranie back-endových služieb Ahoj
-| 
+|
 | Integrátor  | Osoba na strane obchodníka, ktorá implementuje integráciu Ahoj UNI API rozhrania |
 | Ahoj.js  | Ahoj JavaScript-ová knižnica |
 
@@ -26,10 +26,10 @@ Pri používaní volaní na Ahoj API je potrebné:
 Pre inicializáciu knižnice Ahoj.js je potrebné :
 * Importovanie JavaScript skriptu ahoj.min.js do kódu hlavičky stránky.
 * Importovanie CSS súboru ahoj.min.css do kódu hlavičky stránky.
-* Realizovať volanie API Ahoj [metódy /payment-methods](/api-payment-methods) ktorej výstupom je zoznam dostupných platobných metód `paymentMethods`. 
+* Realizovať volanie API Ahoj [metódy /payment-methods](/api-payment-methods) ktorej výstupom je zoznam dostupných platobných metód `paymentMethods`.
 * Vytvoriť JavaScript-ový objekt Ahoj pomocou konfigurácie, ktorá obsahuje zoznam dostupných platobných metód z predošlého volania API Ahoj .
 
-#### Príklad inicializácie Ahoj.js 
+#### Príklad inicializácie Ahoj.js
 ```html
 <head>
     <!-- Zdrojové súbory knižnice -->
@@ -52,7 +52,7 @@ Pre inicializáciu knižnice Ahoj.js je potrebné :
 ## Zobrazenie produktového banneru
 Pre zobrazenie a prekreslenie produktového mini banneru služby KTZo30d na strane integrátora na stránkach detail produktu je nutné:
 * Realizovať volanie API Ahoj [metódy /calculation](/api-calculation), ktorá pre konečnú cenu produktu vráti sadu finančných parametrov pôžičky v objekte `CalculatedProduct`.
-* Pre vykreslenie produktového mini banneru použijeme metódu [Ahoj.renderProductBanner](https://github.com/TomasJendek/ahoj-uniapi/wiki/renderProductBanner), kde na vstupe vložíme výsledok predošlého volania - objekt `CalculatedProduct`.
+* Pre vykreslenie produktového mini banneru použijeme metódu [Ahoj.renderProductBanner](https://github.com/TomasJendek/ahoj-uniapi/wiki/renderProductBanner), kde na vstupe vložíme výsledok kalkulácie produktu z predošlého volania - objekt `CalculatedProduct`.
 
 ####Sekvenčný diagram zobrazenia produktového banneru:
 ![](https://github.com/TomasJendek/ahoj-uniapi/blob/main/product-banner-sequence-diagram.png?raw=true)
@@ -178,7 +178,7 @@ Detailný opis metódy nájdete v [API dokumentácii](/).
 ### Calculation
 `[POST] /eshop/{businessPlace}/calculation`
 
-Metóda slúži na výpočet plnej sady finančných parametrov pôžičky na základe zvolených vstupných parametrov. Používa sa pre zobrazenie splátok metódy RT. 
+Metóda slúži na výpočet plnej sady finančných parametrov pôžičky na základe zvolených vstupných parametrov. Používa sa pre zobrazenie splátok metódy RT.
 #### Vstupné parametre
 
 | Názov | Typ | Popis | Povinný |
@@ -194,7 +194,7 @@ Metóda slúži na výpočet plnej sady finančných parametrov pôžičky na z�
 
 
 #### Návratová hodnota
-Array of [`CalculatedProduct`]: Objekt reprezentuje finančné parametre pre produkty na vstupe. 
+Array of [`CalculatedProduct`]: Objekt reprezentuje finančné parametre pre produkty na vstupe.
 
 
 
