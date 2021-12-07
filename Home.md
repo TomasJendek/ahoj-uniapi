@@ -55,7 +55,7 @@ Pre zobrazenie a prekreslenie produktového mini banneru služby KTZo30d na stra
 * Pre vykreslenie produktového mini banneru použijeme metódu Ahoj.renderProductBanner, kde na vstupe vložíme výsledok predošlého volania - objekt CalculatedProduct. Vstupné parametre a výstup je detailne popísaný v dokumentácii Ahoj.js metódy renderProductBanner.
 
 Sekvenčný diagram zobrazenia produktového banneru:
-
+![](https://github.com/TomasJendek/ahoj-uniapi/blob/main/product-banner-sequence-diagram.png?raw=true)
 
 
 ## Ahoj API endpointy
