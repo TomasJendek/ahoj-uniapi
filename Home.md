@@ -8,8 +8,7 @@ Finance a.s., ktorí prevádzkujú elektronický obchod.
 | Služby Ahoj  | Komerčné služby Ahoj, poskytované spoločnosťou Amico Finance, a.s. | 
 | Poskytovateľ  | Poskytovateľom Služby Ahoj „Kúp teraz, zaplať o 30 dní“ je Amico Finance, a.s. | 
 | KTZo30d  | Služba Ahoj „Kúp teraz, zaplať o 30 dní“. | 
-| API Ahoj  | Application Programming Interface – aplikačné programové REST rozhranie back-endových služieb Ahoj
-|
+| API Ahoj  | Application Programming Interface – aplikačné programové REST rozhranie back-endových služieb Ahoj|
 | Integrátor  | Osoba na strane obchodníka, ktorá implementuje integráciu Ahoj UNI API rozhrania |
 | Ahoj.js  | Ahoj JavaScript-ová knižnica |
 
