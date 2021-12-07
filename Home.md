@@ -8,7 +8,7 @@ Pri používaní volaní na Ahoj API je potrebné:
 Pre inicializáciu knižnice Ahoj.js je potrebné :
 * Importovanie JavaScript skriptu ahoj.min.js do kódu hlavičky stránky.
 * Importovanie CSS súboru ahoj.min.css do kódu hlavičky stránky.
-* Realizovať volanie API Ahoj GET metódy /eshop/{businessPlace}/product/payment-methods ktorej výstupom je zoznam platobných metód paymentMethods. 
+* Realizovať volanie API Ahoj [GET metódy /eshop/{businessPlace}/product/payment-methods](GET metódy /eshop/{businessPlace}/product/payment-methods) ktorej výstupom je zoznam platobných metód paymentMethods. 
 * Vytvoriť JavaScript-ový objekt Ahoj pomocou konfigurácie, ktorá obsahuje zoznam platobných metód z predošlého volania API Ahoj . Konfigurácia je bližšie popísaná v Ahoj.js dokumentácii. 
 
 
