@@ -29,7 +29,7 @@ Pre inicializáciu knižnice Ahoj.js je potrebné :
 * Realizovať volanie API Ahoj [metódy /payment-methods](/api-payment-methods) ktorej výstupom je zoznam dostupných platobných metód `paymentMethods`. 
 * Vytvoriť JavaScript-ový objekt Ahoj pomocou konfigurácie, ktorá obsahuje zoznam dostupných platobných metód z predošlého volania API Ahoj .
 
-### Príklad inicializácie Ahoj.js ###
+#### Príklad inicializácie Ahoj.js 
 ```html
 <head>
     <!-- Zdrojové súbory knižnice -->
@@ -54,8 +54,9 @@ Pre zobrazenie a prekreslenie produktového mini banneru služby KTZo30d na stra
 * Realizovať volanie API Ahoj POST metódy /eshop/{businessPlace}/calculation/, ktorá pre konečnú cenu produktu vráti sadu finančných parametrov pôžičky v objekte CalculatedProduct.
 * Pre vykreslenie produktového mini banneru použijeme metódu Ahoj.renderProductBanner, kde na vstupe vložíme výsledok predošlého volania - objekt CalculatedProduct. Vstupné parametre a výstup je detailne popísaný v dokumentácii Ahoj.js metódy renderProductBanner.
 
-Sekvenčný diagram zobrazenia produktového banneru:
+####Sekvenčný diagram zobrazenia produktového banneru:
 ![](https://github.com/TomasJendek/ahoj-uniapi/blob/main/product-banner-sequence-diagram.png?raw=true)
+
 
 
 ## Ahoj API endpointy
