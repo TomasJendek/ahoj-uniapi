@@ -51,8 +51,8 @@ Pre inicializáciu knižnice Ahoj.js je potrebné :
 
 ## Zobrazenie produktového banneru
 Pre zobrazenie a prekreslenie produktového mini banneru služby KTZo30d na strane integrátora na stránkach detail produktu je nutné:
-* Realizovať volanie API Ahoj POST metódy /eshop/{businessPlace}/calculation/, ktorá pre konečnú cenu produktu vráti sadu finančných parametrov pôžičky v objekte CalculatedProduct.
-* Pre vykreslenie produktového mini banneru použijeme metódu Ahoj.renderProductBanner, kde na vstupe vložíme výsledok predošlého volania - objekt CalculatedProduct. Vstupné parametre a výstup je detailne popísaný v dokumentácii Ahoj.js metódy renderProductBanner.
+* Realizovať volanie API Ahoj [metódy /calculation](/api-calculation), ktorá pre konečnú cenu produktu vráti sadu finančných parametrov pôžičky v objekte `CalculatedProduct`.
+* Pre vykreslenie produktového mini banneru použijeme metódu `Ahoj.renderProductBanner`, kde na vstupe vložíme výsledok predošlého volania - objekt `CalculatedProduct`.
 
 ####Sekvenčný diagram zobrazenia produktového banneru:
 ![](https://github.com/TomasJendek/ahoj-uniapi/blob/main/product-banner-sequence-diagram.png?raw=true)
@@ -71,8 +71,8 @@ Metóda sa volá pri inicializácii Ahoj.js JavaScript knižnice. Volanie metód
 
 | Názov | Typ | Popis | Povinný |
 |:-------:|:---------:|:------|:------|
-| `API_KEY`  | header | Autorizačný kľúč predajného miesta   |  Áno |
-| `businessPlace` | path | Identifikátor pre predajné miesto služby KTZo30d | Áno |
+| API_KEY  | header | Autorizačný kľúč predajného miesta   |  Áno |
+| businessPlace | path | Identifikátor pre predajné miesto služby KTZo30d | Áno |
 
 
 #### Návratová hodnota
@@ -82,7 +82,7 @@ Array of [`PaymentMethod`]: Objekt reprezentuje platobnú metódu dostupnú pre 
 
 #### Príklad volania:
 
-`[GET] https://api.test.psws.xyz/eshop/TEST_ESHOP/product/payment-methods`
+`GET https://api.test.psws.xyz/eshop/TEST_ESHOP/product/payment-methods`
 
 #### Príklad návratovej hodnoty:
 
@@ -174,3 +174,126 @@ Array of [`PaymentMethod`]: Objekt reprezentuje platobnú metódu dostupnú pre 
 Detailný opis metódy nájdete v [API dokumentácii](/).
 
 
+<a name="api-calculation"></a>
+### Calculation
+`[POST] /eshop/{businessPlace}/calculation`
+
+Metóda slúži na výpočet plnej sady finančných parametrov pôžičky na základe zvolených vstupných parametrov. Používa sa pre zobrazenie splátok metódy RT.
+#### Vstupné parametre
+
+| Názov | Typ | Popis | Povinný |
+|:-------:|:---------:|:------|:------|
+| API_KEY  | header | Autorizačný kľúč predajného miesta   |  Áno |
+| businessPlace | path | Identifikátor pre predajné miesto služby KTZo30d | Áno |
+
+#### Telo volania
+
+| Typ | Objekt | Popis |  
+|:-------:|:---------:|:------|
+| application/json  | `Product` | Vstupné parametre pre výpočet parametrov pôžičky  | 
+
+
+#### Návratová hodnota
+Array of [`CalculatedProduct`]: Objekt reprezentuje finančné parametre pre produkty na vstupe. 
+
+
+
+#### Príklad volania:
+
+`POST https://api.test.psws.xyz/eshop/{businessPlace}/calculation/`
+
+```json
+POST /eshop/{businessPlace}/calculation
+Content-Type: application/json
+Accept: application/json
+API_KEY: ...
+        
+{
+   "amount": 900,
+   "depositAmount": 100,
+   "depositPercent": 0.1,
+   "instalmentCount": 12,
+   "promotion": {
+      "code": "SP_SPLIT_IT",
+      "name": "rozlož to",
+      "description": "3 bezúročné platby",
+      "instalmentIntervalDays": 1,
+      "minGoodsPrice": 50,
+      "minGoodsItemPrice": 20,
+      "maxGoodsPrice": 300,
+      "maxGoodsPriceProspect": 300,
+      "productType": {
+         "code": "GOODS_SPLIT_PAYMENT",
+         "name": "Rozlož to",
+         "instalmentDayOfMonth": 20
+      }
+   },
+   "goods": [
+      {
+         "price": 1000,
+         "totalPrice": 1000
+      }
+   ],
+   "instalment": {
+      "amount": 75,
+      "amountWithInsurance": 75,
+      "insuranceAmount": 0
+   },
+   "averageRpmn": 0,
+   "interest": 0,
+   "maxReward": 0,
+   "reward": 0,
+   "rpmn": 0,
+   "totalAmount": 900,
+   "totalAmountWithInsurance": 900,
+   "totalCosts": 0
+}
+```
+
+#### Príklad návratovej hodnoty:
+
+```json
+[
+  {
+    "amount": 70.89,
+    "depositAmount": 0,
+    "depositPercent": 0,
+    "instalmentCount": 3,
+    "promotion": {
+      "code": "SP_SPLIT_IT",
+      "name": "rozlož to",
+      "description": "3 bezúročné platby",
+      "instalmentIntervalDays": 1,
+      "minGoodsPrice": 50,
+      "minGoodsItemPrice": 20,
+      "maxGoodsPrice": 300,
+      "maxGoodsPriceProspect": 300,
+      "productType": {
+        "code": "GOODS_SPLIT_PAYMENT",
+        "name": "Rozlož to",
+        "instalmentDayOfMonth": 20
+      }
+    },
+    "goods": [
+      {
+        "price": 70.89,
+        "totalPrice": 70.89
+      }
+    ],
+    "instalment": {
+      "amount": 23.63,
+      "amountWithInsurance": 23.63,
+      "insuranceAmount": 0
+    },
+    "averageRpmn": 0,
+    "interest": 0,
+    "maxReward": 0,
+    "reward": 0,
+    "rpmn": 0,
+    "totalAmount": 70.89,
+    "totalAmountWithInsurance": 70.89,
+    "totalCosts": 0
+  }
+]
+```
+Detailný opis metódy nájdete v [API dokumentácii](/).
