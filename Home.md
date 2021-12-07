@@ -53,7 +53,7 @@ Pre zobrazenie a prekreslenie produktového mini banneru služby KTZo30d na stra
 * Realizovať volanie API Ahoj metódy [/calculation](/api-calculation), ktorá pre konečnú cenu produktu vráti sadu finančných parametrov pôžičky v objekte `CalculatedProduct`.
 * Pre vykreslenie produktového mini banneru použijeme metódu [Ahoj.renderProductBanner()](https://github.com/TomasJendek/ahoj-uniapi/wiki/renderProductBanner), kde na vstupe vložíme výsledok kalkulácie produktu z predošlého volania - objekt `CalculatedProduct`.
 
-####Sekvenčný diagram zobrazenia produktového banneru:
+#### Sekvenčný diagram zobrazenia produktového banneru:
 ![](https://github.com/TomasJendek/ahoj-uniapi/blob/main/product-banner-sequence-diagram.png?raw=true)
 
 
