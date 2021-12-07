@@ -1,4 +1,20 @@
 # Sprievodca integráciou Ahoj UNI API rozhrania
+Sprievodca integráciou je určený pre registrovaných partnerov spoločnosti Amico
+Finance a.s., ktorí prevádzkujú elektronický obchod.
+
+## Definícia pojmov a skratiek ##
+| Skratka | Popis |
+|:-------:|:---------|
+| Služby Ahoj  | Komerčné služby Ahoj, poskytované spoločnosťou Amico Finance, a.s. | 
+| Poskytovateľ  | Poskytovateľom Služby Ahoj „Kúp teraz, zaplať o 30 dní“ je Amico Finance, a.s. | 
+| KTZo30d  | Služba Ahoj „Kúp teraz, zaplať o 30 dní“. | 
+| API Ahoj  | Application Programming Interface – aplikačné programové REST rozhranie back-endových služieb Ahoj
+| 
+| Integrátor  | Osoba na strane obchodníka, ktorá implementuje integráciu Ahoj UNI API rozhrania |
+| Ahoj.js  | Ahoj JavaScript-ová knižnica |
+
+Pod integráciou Ahoj UNI API rozhrania rozumieme definovanie technických prostriedkov na výmenu informácií medzi Ahoj API, Ahoj.js knižnicou a online službou obchodníka za účelom realizácie poskytnutia služby KTZo30d. Technicky je integrácia realizovaná kombináciou volaní na API Ahoj a použitím JavaScript knižnice Ahoj.js na client site strane integrátora.
+
 
 
 ## Inštalácia a inicializácia Ahoj UNI API rozhrania
@@ -10,13 +26,10 @@ Pri používaní volaní na Ahoj API je potrebné:
 Pre inicializáciu knižnice Ahoj.js je potrebné :
 * Importovanie JavaScript skriptu ahoj.min.js do kódu hlavičky stránky.
 * Importovanie CSS súboru ahoj.min.css do kódu hlavičky stránky.
-* Realizovať volanie API Ahoj [GET metódy /eshop/{businessPlace}/product/payment-methods](/) ktorej výstupom je zoznam platobných metód `paymentMethods`. Príklad volania: `[GET] https://api.test.psws.xyz/eshop/TEST_ESHOP/product/payment-methods`
+* Realizovať volanie API Ahoj [metódy /payment-methods](/api-payment-methods) ktorej výstupom je zoznam dostupných platobných metód `paymentMethods`. 
+* Vytvoriť JavaScript-ový objekt Ahoj pomocou konfigurácie, ktorá obsahuje zoznam dostupných platobných metód z predošlého volania API Ahoj .
 
-* Vytvoriť JavaScript-ový objekt Ahoj pomocou konfigurácie, ktorá obsahuje zoznam platobných metód z predošlého volania API Ahoj . Konfigurácia je bližšie popísaná v Ahoj.js dokumentácii.
-
-
-
-
+### Príklad inicializácie Ahoj.js ###
 ```html
 <head>
     <!-- Zdrojové súbory knižnice -->
@@ -36,15 +49,18 @@ Pre inicializáciu knižnice Ahoj.js je potrebné :
 </head>
 ```
 
-## Inštalácia a inicializácia Ahoj UNI API rozhrania
-asdfasf
+## Zobrazenie produktového banneru
+Pre zobrazenie a prekreslenie produktového mini banneru služby KTZo30d na strane integrátora na stránkach detail produktu je nutné:
+* Realizovať volanie API Ahoj POST metódy /eshop/{businessPlace}/calculation/, ktorá pre konečnú cenu produktu vráti sadu finančných parametrov pôžičky v objekte CalculatedProduct.
+* Pre vykreslenie produktového mini banneru použijeme metódu Ahoj.renderProductBanner, kde na vstupe vložíme výsledok predošlého volania - objekt CalculatedProduct. Vstupné parametre a výstup je detailne popísaný v dokumentácii Ahoj.js metódy renderProductBanner.
 
-### Zobrazenie produktového mini banneru
-asdf
+Sekvenčný diagram zobrazenia produktového banneru:
+
 
 
 ## Ahoj API endpointy
 
+<a name="api-payment-methods"></a>
 ### Payment-methods
 `[GET] /eshop/{businessPlace}/product/payment-methods`
 
@@ -63,26 +79,97 @@ Array of [`PaymentMethod`]: Objekt reprezentuje platobnú metódu dostupnú pre 
 
 
 
-Príklad volania:
+#### Príklad volania:
+
 `[GET] https://api.test.psws.xyz/eshop/TEST_ESHOP/product/payment-methods`
 
-Príklad návratovej hodnoty:
+#### Príklad návratovej hodnoty:
 
 ```json
 [
-   {
-     code: 'DEFERRED_PAYMENT',
-     name: 'Odlož.to',
-     title: 'Ahoj - platba o 30 dní bez navýšenia',
-     promotions: [ [Object] ]
-   },
-   {
-     code: 'SPLIT_PAYMENT',
-     name: 'Rozlož.to',
-     title: 'Ahoj - v 3 platbách bez navýšenia',
-     promotions: [ [Object] ]
-   }
- ]
+  {
+    "code": "DEFERRED_PAYMENT",
+    "name": "Odlož.to",
+    "title": "Ahoj - platba o 30 dní bez navýšenia",
+    "promotions": [
+      {
+        "code": "DP_DEFER_IT",
+        "name": "Zaplať o 30 dní",
+        "description": "Nakúp teraz, splať o 30 dní",
+        "instalmentIntervalDays": 30,
+        "minGoodsPrice": 10.0,
+        "minGoodsItemPrice": 2.0,
+        "maxGoodsPrice": 300.0,
+        "maxGoodsPriceProspect": 300.0,
+        "deposit": {
+          "from": 0.0,
+          "to": 0.0,
+          "step": 0.0
+        },
+        "depositPercent": {
+          "from": 0.0,
+          "to": 0.0,
+          "step": 0.0
+        },
+        "instalmentCount": {
+          "from": 1,
+          "to": 1,
+          "step": 1
+        },
+        "loanAmount": {
+          "from": 10.0,
+          "to": 350.0
+        },
+        "productType": {
+          "code": "GOODS_DEFERRED_PAYMENT",
+          "name": "Kúp teraz, zaplať neskôr"
+        }
+      }
+    ]
+  },
+  {
+    "code": "SPLIT_PAYMENT",
+    "name": "Rozlož.to",
+    "title": "Ahoj - v 3 platbách bez navýšenia",
+    "promotions": [
+      {
+        "code": "SP_SPLIT_IT",
+        "name": "rozlož to",
+        "description": "3 bezúročné platby",
+        "instalmentIntervalDays": 1,
+        "minGoodsPrice": 50.0,
+        "minGoodsItemPrice": 20.0,
+        "maxGoodsPrice": 300.0,
+        "maxGoodsPriceProspect": 300.0,
+        "deposit": {
+          "from": 0.0,
+          "to": 0.0,
+          "step": 0.0
+        },
+        "depositPercent": {
+          "from": 0.0,
+          "to": 0.0,
+          "step": 0.0
+        },
+        "instalmentCount": {
+          "from": 3,
+          "to": 3,
+          "step": 1
+        },
+        "loanAmount": {
+          "from": 20.0,
+          "to": 350.0
+        },
+        "productType": {
+          "code": "GOODS_SPLIT_PAYMENT",
+          "name": "Rozlož to",
+          "instalmentDayOfMonth": 20
+        }
+      }
+    ]
+  }
+]
 ```
+Detailný opis metódy nájdete v [API dokumentácii](/).
 
 
