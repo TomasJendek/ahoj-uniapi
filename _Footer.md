@@ -1,0 +1,1 @@
+![](https://raw.githubusercontent.com/ahoj-shopping/ahojplatby-magento-2/main/logo.png)
